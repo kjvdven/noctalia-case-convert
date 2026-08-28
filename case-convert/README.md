@@ -1,4 +1,4 @@
-# Change Case
+# Case Convert
 
 Convert text between naming conventions — camelCase, kebab-case, snake_case,
 CONSTANT_CASE and 14 more — without leaving the launcher. Useful when you have a

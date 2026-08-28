@@ -1,11 +1,11 @@
-# Change Case — convert text between naming conventions from the launcher.
+# Case Convert — convert text between naming conventions from the launcher.
 #
 # Type the provider prefix (default `/case`) followed by the text to convert, or
 # type nothing to convert the current selection / clipboard. Enter copies the
 # highlighted conversion.
 
 id = "kjvdven/case-convert"
-name = "Change Case"
+name = "Case Convert"
 version = "1.0.0"
 plugin_api = 3
 author = "kjvdven"

@@ -1,5 +1,5 @@
 --!nonstrict
--- Change Case — launcher provider.
+-- Case Convert — launcher provider.
 --
 -- Usage in the launcher (prefix `/case` by default):
 --   /case some text here   convert the typed text
@@ -144,6 +144,6 @@ function onActivate(id)
 
 	noctalia.copyToClipboard(entry.value, "text/plain")
 	if boolConfig("notify_on_copy", true) then
-		noctalia.notify("Change Case", entry.name .. " copied to clipboard")
+		noctalia.notify("Case Convert", entry.name .. " copied to clipboard")
 	end
 end
