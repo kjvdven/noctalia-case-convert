@@ -12,8 +12,10 @@ author = "kjvdven"
 license = "MIT"
 icon = "text-recognition"
 description = "Convert text between naming conventions (camelCase, kebab-case, snake_case, …) straight from the launcher."
-tags = ["text", "developer", "utility"]
-dependencies = []
+tags = ["launcher", "utility", "development"]
+# Optional: only used to read the primary selection when the query is empty.
+# Without it the plugin falls back to the clipboard.
+dependencies = ["wl-paste"]
 
 [[launcher_provider]]
 id = "case"
