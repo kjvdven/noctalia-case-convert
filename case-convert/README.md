@@ -87,6 +87,9 @@ keep it.
   rather than corrupted, and `ß` stays `ß`, having no single-character uppercase.
 - **Compositor.** Reading the selection is Wayland-only through `wl-paste`;
   everything else is compositor-independent.
+- **Compact launcher.** Each row names its conversion in the subtitle, and a
+  compact launcher (`shell.launcher.compact = true`) hides subtitles. Turn
+  compact off to tell `Hello_World` from `Hello-World` at a glance.
 
 Source and conversion tests:
 <https://github.com/kjvdven/noctalia-case-convert>
