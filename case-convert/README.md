@@ -28,4 +28,4 @@ falls back to the clipboard.
 - **Notify on copy** — notification after copying. On by default.
 
 Full documentation, conversion table and Unicode behaviour:
-<https://github.com/krisvanderven/noctalia-case-convert>
+<https://github.com/kjvdven/noctalia-case-convert>

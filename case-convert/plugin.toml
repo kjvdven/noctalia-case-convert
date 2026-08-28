@@ -4,11 +4,11 @@
 # type nothing to convert the current selection / clipboard. Enter copies the
 # highlighted conversion.
 
-id = "krisvanderven/case-convert"
+id = "kjvdven/case-convert"
 name = "Change Case"
 version = "1.0.0"
 plugin_api = 3
-author = "krisvanderven"
+author = "kjvdven"
 license = "MIT"
 icon = "text-recognition"
 description = "Convert text between naming conventions (camelCase, kebab-case, snake_case, …) straight from the launcher."

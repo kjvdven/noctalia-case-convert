@@ -68,9 +68,9 @@ nothing beyond noctalia.
 Clone anywhere, then register the clone as a plugin source:
 
 ```sh
-git clone https://github.com/krisvanderven/noctalia-case-convert.git
+git clone https://github.com/kjvdven/noctalia-case-convert.git
 noctalia msg plugins source add local path "$PWD/noctalia-case-convert"
-noctalia msg plugins enable krisvanderven/case-convert
+noctalia msg plugins enable kjvdven/case-convert
 ```
 
 Going through `noctalia msg` rather than editing `settings.toml` by hand matters:
@@ -82,7 +82,7 @@ The launcher trigger is the provider prefix plus `case` (so `/case` by default).
 To change just this provider's prefix:
 
 ```toml
-[shell.launcher.providers."krisvanderven/case-convert:case"]
+[shell.launcher.providers."kjvdven/case-convert:case"]
 prefix = "cc"
 ```
 
