@@ -90,10 +90,31 @@ function M.trim(text: string): string
 	return (text:gsub("^%s+", ""):gsub("%s+$", ""))
 end
 
+-- Prose punctuation is parked on control bytes so the separator pass skips it.
+local PROSE_PARK = { [","] = "\1", ["."] = "\2", [";"] = "\3", [":"] = "\4" }
+local PROSE_RESTORE = { ["\1"] = ",", ["\2"] = ".", ["\3"] = ";", ["\4"] = ":" }
+
+local function parkProse(text: string): string
+	local function park(marks: string): string
+		return (marks:gsub(".", PROSE_PARK))
+	end
+	text = text:gsub("[,.;:]+%f[%s]", park) -- `hello, world`
+	text = text:gsub("[,.;:]+$", park) -- `the end.`
+	text = text:gsub("(%d)([.,])%f[%d]", function(digit, mark) -- `2.5`, `1,000`
+		return digit .. PROSE_PARK[mark]
+	end)
+	return text
+end
+
 -- Split text into words. Separators are dropped; camel and acronym boundaries
 -- become splits too, so `parseHTTPResponse` and `parse-http-response` tokenize
--- identically.
-function M.tokenize(text: string): { string }
+-- identically. With `prose` on, `,.;:` before whitespace or the end and `.`/`,`
+-- between digits stay attached to their word, so sentences keep their
+-- punctuation while `dot.case` still splits.
+function M.tokenize(text: string, prose: boolean?): { string }
+	if prose then
+		text = parkProse(text)
+	end
 	local spaced = text:gsub(SEPARATOR_PATTERN, " ")
 	spaced = spaced:gsub("(%l)(%u)", "%1 %2") -- fooBar    → foo Bar
 	spaced = spaced:gsub("(%d)(%u)", "%1 %2") -- utf8Text  → utf8 Text
@@ -101,7 +122,7 @@ function M.tokenize(text: string): { string }
 
 	local tokens = {}
 	for word in spaced:gmatch("%S+") do
-		table.insert(tokens, word)
+		table.insert(tokens, if prose then (word:gsub("[\1-\4]", PROSE_RESTORE)) else word)
 	end
 	return tokens
 end
@@ -162,9 +183,9 @@ local function alternatingCase(text: string): string
 	return table.concat(out)
 end
 
--- ctx = { text: string (trimmed input), tokens: { string }, preserve: boolean }
--- Word-based conversions read `tokens`; character-based ones read `text`, which
--- keeps punctuation intact (that is what makes `UPPER CASE` differ from `no case`).
+-- ctx = { text: string (trimmed input), tokens: { string }, words: { string }, preserve: boolean }
+-- Programming conversions read `tokens`; word-based Text conversions read `words`
+-- (prose tokens, punctuation kept); character-based ones read `text`.
 M.CONVERSIONS = {
 	{
 		key = "camel",
@@ -272,9 +293,9 @@ M.CONVERSIONS = {
 		name = "Title Case",
 		category = "Text",
 		convert = function(ctx)
-			return join(ctx.tokens, " ", function(token, index, total)
+			return join(ctx.words, " ", function(token, index, total)
 				local lowered = M.lower(token)
-				if index > 1 and index < total and SMALL_WORDS[lowered] then
+				if index > 1 and index < total and SMALL_WORDS[(lowered:gsub("[,.;:]+$", ""))] then
 					return lowered
 				end
 				return upperFirst(norm(token, ctx.preserve))
@@ -286,7 +307,7 @@ M.CONVERSIONS = {
 		name = "Capital Case",
 		category = "Text",
 		convert = function(ctx)
-			return join(ctx.tokens, " ", function(token)
+			return join(ctx.words, " ", function(token)
 				return upperFirst(norm(token, ctx.preserve))
 			end)
 		end,
@@ -296,7 +317,7 @@ M.CONVERSIONS = {
 		name = "Sentence case",
 		category = "Text",
 		convert = function(ctx)
-			return join(ctx.tokens, " ", function(token, index)
+			return join(ctx.words, " ", function(token, index)
 				local word = norm(token, ctx.preserve)
 				return if index == 1 then upperFirst(word) else word
 			end)
@@ -307,7 +328,7 @@ M.CONVERSIONS = {
 		name = "no case",
 		category = "Text",
 		convert = function(ctx)
-			return join(ctx.tokens, " ", function(token)
+			return join(ctx.words, " ", function(token)
 				return M.lower(token)
 			end)
 		end,
@@ -352,7 +373,12 @@ M.CONVERSIONS = {
 -- word-based conversions come out empty).
 function M.convertAll(text: string, preserve: boolean)
 	local trimmed = M.trim(text)
-	local ctx = { text = trimmed, tokens = M.tokenize(trimmed), preserve = preserve }
+	local ctx = {
+		text = trimmed,
+		tokens = M.tokenize(trimmed),
+		words = M.tokenize(trimmed, true),
+		preserve = preserve,
+	}
 
 	local results = {}
 	for _, conversion in M.CONVERSIONS do

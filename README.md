@@ -47,7 +47,9 @@ Two details worth knowing:
 - **Title Case vs Capital Case.** Title Case lowercases small words (`a`, `of`,
   `the`, …) unless they are first or last; Capital Case capitalizes every word.
 - **Word-based vs character-based.** The word-based conversions rebuild the text
-  from its words, so punctuation between words disappears. `lower case`,
+  from its words. Programming conversions drop punctuation between words; Text
+  conversions keep prose punctuation and decimals (`hello, version 2.5`) but
+  still split identifiers (`dot.case` → `Dot Case`). `lower case`,
   `UPPER CASE`, `sWAP cASE` and `AlTeRnAtInG cAsE` transform the input character
   by character and keep punctuation intact.
 
@@ -92,7 +94,7 @@ The conversion logic in `case-convert/cases.luau` touches no noctalia API, so it
 runs and tests standalone:
 
 ```sh
-nix run nixpkgs#luau -- tests/cases_test.luau   # 52 checks
+nix run nixpkgs#luau -- tests/cases_test.luau   # 63 checks
 noctalia plugins lint case-convert              # manifest + settings cross-check
 ```
 
