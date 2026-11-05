@@ -125,6 +125,23 @@ do
 	expect("multiline/kebab-case", got["kebab-case"], "first-line-second-line")
 end
 
+-- Category order: case-insensitive, typos ignored, missing ones appended.
+do
+	local function order(text: string): string
+		local ranks = cases.categoryRanks(text)
+		local sorted = table.clone(cases.CATEGORIES)
+		table.sort(sorted, function(a, b)
+			return ranks[a] < ranks[b]
+		end)
+		return table.concat(sorted, ",")
+	end
+	expect("order/default", order(""), "Programming,Text,Fun")
+	expect("order/full", order("Fun, Text, Programming"), "Fun,Text,Programming")
+	expect("order/partial", order("text"), "Text,Programming,Fun")
+	expect("order/typo", order("Txt, Fun"), "Fun,Programming,Text")
+	expect("order/duplicate", order("Fun,fun , Text"), "Fun,Text,Programming")
+end
+
 -- Degenerate inputs.
 do
 	expect("empty/count", tostring(#cases.convertAll("", true)), "0")

@@ -16,6 +16,76 @@
     "notify_on_copy": {
       "label": "Notify on copy",
       "description": "Show a notification after copying a conversion to the clipboard."
+    },
+    "show_programming": {
+      "label": "Programming",
+      "description": "Show the Programming conversions."
+    },
+    "show_text": {
+      "label": "Text",
+      "description": "Show the Text conversions."
+    },
+    "show_fun": {
+      "label": "Fun",
+      "description": "Show the Fun conversions."
+    },
+    "category_order": {
+      "label": "Category order",
+      "description": "Comma-separated, for example \"Text, Programming, Fun\". Categories left out follow in the default order."
+    },
+    "show_camel": {
+      "label": "↳ camelCase"
+    },
+    "show_pascal": {
+      "label": "↳ PascalCase"
+    },
+    "show_kebab": {
+      "label": "↳ kebab-case"
+    },
+    "show_snake": {
+      "label": "↳ snake_case"
+    },
+    "show_constant": {
+      "label": "↳ CONSTANT_CASE"
+    },
+    "show_dot": {
+      "label": "↳ dot.case"
+    },
+    "show_path": {
+      "label": "↳ path/case"
+    },
+    "show_pascal_snake": {
+      "label": "↳ Pascal_Snake_Case"
+    },
+    "show_kebab_upper": {
+      "label": "↳ KEBAB-UPPER-CASE"
+    },
+    "show_header": {
+      "label": "↳ Header-Case"
+    },
+    "show_title": {
+      "label": "↳ Title Case"
+    },
+    "show_capital": {
+      "label": "↳ Capital Case"
+    },
+    "show_sentence": {
+      "label": "↳ Sentence case"
+    },
+    "show_no_case": {
+      "label": "↳ no case"
+    },
+    "show_lower": {
+      "label": "↳ lower case"
+    },
+    "show_upper": {
+      "label": "↳ UPPER CASE"
+    },
+    "show_swap": {
+      "label": "↳ sWAP cASE"
+    },
+    "show_alternating": {
+      "label": "↳ AlTeRnAtInG cAsE"
     }
   }
 }
