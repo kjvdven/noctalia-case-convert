@@ -91,13 +91,21 @@ function M.trim(text: string): string
 end
 
 -- Prose punctuation is parked on control bytes so the separator pass skips it.
-local PROSE_PARK = { [","] = "\1", ["."] = "\2", [";"] = "\3", [":"] = "\4" }
-local PROSE_RESTORE = { ["\1"] = ",", ["\2"] = ".", ["\3"] = ";", ["\4"] = ":" }
+local PROSE_PARK = { [","] = "\1", ["."] = "\2", [";"] = "\3", [":"] = "\4", ["-"] = "\5" }
+local PROSE_RESTORE = { ["\1"] = ",", ["\2"] = ".", ["\3"] = ";", ["\4"] = ":", ["\5"] = "-" }
 
 local function parkProse(text: string): string
 	local function park(marks: string): string
 		return (marks:gsub(".", PROSE_PARK))
 	end
+	-- Only text with a space is prose; a lone `user-name` is an identifier.
+	if text:find("%s") then
+		text = text:gsub("(%w)%-%f[%w]", "%1\5") -- `USB-C`, `self-driving`
+	end
+	text = text:gsub("%f[%w]%a%.%a[%a.]*", function(run) -- `S.W.A.T.`, `e.g.`
+		local leftover = run:gsub("%a%.", "")
+		return if #leftover <= 1 then park(run) else run
+	end)
 	text = text:gsub("[,.;:]+%f[%s]", park) -- `hello, world`
 	text = text:gsub("[,.;:]+$", park) -- `the end.`
 	text = text:gsub("(%d)([.,])%f[%d]", function(digit, mark) -- `2.5`, `1,000`
@@ -122,7 +130,7 @@ function M.tokenize(text: string, prose: boolean?): { string }
 
 	local tokens = {}
 	for word in spaced:gmatch("%S+") do
-		table.insert(tokens, if prose then (word:gsub("[\1-\4]", PROSE_RESTORE)) else word)
+		table.insert(tokens, if prose then (word:gsub("[\1-\5]", PROSE_RESTORE)) else word)
 	end
 	return tokens
 end

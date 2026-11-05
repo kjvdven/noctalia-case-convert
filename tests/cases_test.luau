@@ -115,6 +115,14 @@ do
 	expect("prose/kebab input", convert("release-notes-2.5", true)["Title Case"], "Release Notes 2.5")
 	expect("prose/dot input", convert("dot.case.input", true)["Title Case"], "Dot Case Input")
 	expect("prose/no space", convert("hello,world", true)["Title Case"], "Hello World")
+
+	-- Initialisms and hyphens inside prose stay whole; a lone identifier still splits.
+	expect("prose/initialism", convert("call the S.W.A.T. team", true)["Title Case"], "Call the S.W.A.T. Team")
+	expect("prose/initialism lowercase", convert("tea, e.g. green", true)["Sentence case"], "Tea, e.g. green")
+	expect("prose/hyphen acronym", convert("a USB-C and PCI-e card", true)["Title Case"], "A USB-C and PCI-e Card")
+	expect("prose/hyphen word", convert("self-driving car", true)["Title Case"], "Self-driving Car")
+	expect("prose/lone identifier", convert("user-name", true)["Title Case"], "User Name")
+	expect("prose/kebab unchanged", convert("a USB-C card", true)["kebab-case"], "a-usb-c-card")
 end
 
 -- Non-ASCII: bytes must survive untouched, never be torn apart. Latin-1

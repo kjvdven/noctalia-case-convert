@@ -64,7 +64,8 @@ Input `this is an example` produces:
 Title Case lowercases small words (`a`, `of`, `the`, …) unless they are first or
 last; Capital Case capitalizes every word. The word-based conversions rebuild
 the text from its words: Programming conversions drop punctuation between words,
-Text conversions keep prose punctuation and decimals (`hello, version 2.5`) but
+Text conversions keep prose punctuation, decimals, initialisms and hyphens
+(`hello, version 2.5`, `S.W.A.T.`, `USB-C`) but
 still split identifiers (`dot.case` → `Dot Case`). `lower case`, `UPPER CASE`,
 `sWAP cASE` and `AlTeRnAtInG cAsE` work character by character and keep it.
 
