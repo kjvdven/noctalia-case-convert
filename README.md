@@ -58,9 +58,9 @@ Two details worth knowing:
 | Input source | Selection, then clipboard | Where text comes from with an empty query |
 | Preserve casing | on | Keep casing inside words, so `NASA rocks` → `NASA_Rocks` instead of `Nasa_Rocks` |
 | Notify on copy | on | Show a notification after copying |
-| Show Programming / Text / Fun | on | Hide a whole category from the results |
+| Programming / Text / Fun | on | Hide a whole category from the results |
 | Category order | `Programming, Text, Fun` | Comma-separated; categories left out or misspelled follow in default order |
-| Show *conversion* (advanced) | on | One toggle per conversion, such as `show_dot = false` |
+| ↳ *conversion* (advanced) | on | One toggle per conversion, such as `show_dot = false` |
 
 A hidden category keeps its tab in the filter bar: the tabs come from the manifest.
 

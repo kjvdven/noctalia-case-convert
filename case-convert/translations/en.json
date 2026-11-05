@@ -18,15 +18,15 @@
       "description": "Show a notification after copying a conversion to the clipboard."
     },
     "show_programming": {
-      "label": "Show Programming",
+      "label": "Programming",
       "description": "Show the Programming conversions."
     },
     "show_text": {
-      "label": "Show Text",
+      "label": "Text",
       "description": "Show the Text conversions."
     },
     "show_fun": {
-      "label": "Show Fun",
+      "label": "Fun",
       "description": "Show the Fun conversions."
     },
     "category_order": {
@@ -34,58 +34,58 @@
       "description": "Comma-separated, for example \"Text, Programming, Fun\". Categories left out follow in the default order."
     },
     "show_camel": {
-      "label": "Show camelCase"
+      "label": "↳ camelCase"
     },
     "show_pascal": {
-      "label": "Show PascalCase"
+      "label": "↳ PascalCase"
     },
     "show_kebab": {
-      "label": "Show kebab-case"
+      "label": "↳ kebab-case"
     },
     "show_snake": {
-      "label": "Show snake_case"
+      "label": "↳ snake_case"
     },
     "show_constant": {
-      "label": "Show CONSTANT_CASE"
+      "label": "↳ CONSTANT_CASE"
     },
     "show_dot": {
-      "label": "Show dot.case"
+      "label": "↳ dot.case"
     },
     "show_path": {
-      "label": "Show path/case"
+      "label": "↳ path/case"
     },
     "show_pascal_snake": {
-      "label": "Show Pascal_Snake_Case"
+      "label": "↳ Pascal_Snake_Case"
     },
     "show_kebab_upper": {
-      "label": "Show KEBAB-UPPER-CASE"
+      "label": "↳ KEBAB-UPPER-CASE"
     },
     "show_header": {
-      "label": "Show Header-Case"
+      "label": "↳ Header-Case"
     },
     "show_title": {
-      "label": "Show Title Case"
+      "label": "↳ Title Case"
     },
     "show_capital": {
-      "label": "Show Capital Case"
+      "label": "↳ Capital Case"
     },
     "show_sentence": {
-      "label": "Show Sentence case"
+      "label": "↳ Sentence case"
     },
     "show_no_case": {
-      "label": "Show no case"
+      "label": "↳ no case"
     },
     "show_lower": {
-      "label": "Show lower case"
+      "label": "↳ lower case"
     },
     "show_upper": {
-      "label": "Show UPPER CASE"
+      "label": "↳ UPPER CASE"
     },
     "show_swap": {
-      "label": "Show sWAP cASE"
+      "label": "↳ sWAP cASE"
     },
     "show_alternating": {
-      "label": "Show AlTeRnAtInG cAsE"
+      "label": "↳ AlTeRnAtInG cAsE"
     }
   }
 }
