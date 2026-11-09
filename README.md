@@ -58,6 +58,11 @@ Two details worth knowing:
 | Input source | Selection, then clipboard | Where text comes from with an empty query |
 | Preserve casing | on | Keep casing inside words, so `NASA rocks` → `NASA_Rocks` instead of `Nasa_Rocks` |
 | Notify on copy | on | Show a notification after copying |
+| Programming / Text / Fun | on | Hide a whole category from the results |
+| Category order | `Programming, Text, Fun` | Comma-separated; categories left out or misspelled follow in default order |
+| ↳ *conversion* (advanced) | on | One toggle per conversion, such as `show_dot = false` |
+
+A hidden category keeps its tab in the filter bar: the tabs come from the manifest.
 
 ## Install
 
@@ -92,7 +97,7 @@ The conversion logic in `case-convert/cases.luau` touches no noctalia API, so it
 runs and tests standalone:
 
 ```sh
-nix run nixpkgs#luau -- tests/cases_test.luau   # 52 checks
+nix run nixpkgs#luau -- tests/cases_test.luau   # 57 checks
 noctalia plugins lint case-convert              # manifest + settings cross-check
 ```
 

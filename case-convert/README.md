@@ -74,6 +74,9 @@ keep it.
 | `input_source` | `select` | `auto` | Where text comes from when the query is empty. `auto` tries the primary selection and falls back to the clipboard; `selection` and `clipboard` use only that one. |
 | `preserve_casing` | `bool` | `true` | Keep the casing inside each word, so `NASA rocks` becomes `NASA_Rocks` rather than `Nasa_Rocks`. Conventions that are lowercase by definition (`kebab-case`, `snake_case`, …) ignore this. |
 | `notify_on_copy` | `bool` | `true` | Show a notification naming the conversion after copying. |
+| `show_programming`, `show_text`, `show_fun` | `bool` | `true` | Show that category's conversions. A hidden category keeps its (empty) filter tab. |
+| `category_order` | `string` | `Programming, Text, Fun` | Comma-separated, case-insensitive. Unknown names are ignored; categories left out follow in default order. |
+| `show_<key>` | `bool` | `true` | Advanced: one per conversion (`show_camel`, `show_dot`, `show_swap`, …), keyed like the conversion's `key` in `cases.luau`. |
 
 ## Notes
 
