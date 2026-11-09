@@ -375,6 +375,34 @@ M.CONVERSIONS = {
 	},
 }
 
+-- Must match the [[launcher_provider.category]] labels in plugin.toml.
+M.CATEGORIES = { "Programming", "Text", "Fun" }
+
+-- Rank categories from a comma-separated order such as `Text, Programming`.
+-- Unknown names are ignored and unnamed categories follow in default order, so
+-- a typo never hides anything.
+function M.categoryRanks(order: string): { [string]: number }
+	local known = {}
+	for _, category in M.CATEGORIES do
+		known[M.lower(category)] = category
+	end
+
+	local ranks, rank = {}, 0
+	local function add(category)
+		if category and not ranks[category] then
+			rank += 1
+			ranks[category] = rank
+		end
+	end
+	for name in order:gmatch("[^,]+") do
+		add(known[M.lower(M.trim(name))])
+	end
+	for _, category in M.CATEGORIES do
+		add(category)
+	end
+	return ranks
+end
+
 -- Convert `text` with every conversion. Returns a list of
 -- { key, name, category, value } in declaration order, skipping conversions
 -- that produce nothing (a separators-only input has no word tokens, so the
