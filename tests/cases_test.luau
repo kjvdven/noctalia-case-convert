@@ -99,6 +99,32 @@ do
 	expect("punctuation/camelCase", got["camelCase"], "helloWorld!NiceDay")
 end
 
+-- Text conversions keep prose punctuation and decimals (issue #1); identifier
+-- separators still split.
+do
+	local got = convert("hello, the user's guide to a galaxy (version 2.5)", true)
+	expect("prose/Title Case", got["Title Case"], "Hello, the User's Guide to a Galaxy (version 2.5)")
+	expect("prose/Capital Case", got["Capital Case"], "Hello, The User's Guide To A Galaxy (version 2.5)")
+	expect("prose/Sentence case", got["Sentence case"], "Hello, the user's guide to a galaxy (version 2.5)")
+	expect("prose/no case", got["no case"], "hello, the user's guide to a galaxy (version 2.5)")
+	expect("prose/kebab-case", got["kebab-case"], "hello-the-user's-guide-to-a-galaxy-(version-2-5)")
+
+	expect("prose/colon and version", convert("Note: see v1.2.3, then quit.", true)["Title Case"], "Note: See V1.2.3, Then Quit.")
+	expect("prose/thousands", convert("1,000 items", true)["Title Case"], "1,000 Items")
+	expect("prose/small word before comma", convert("bread, and, butter", true)["Title Case"], "Bread, and, Butter")
+	expect("prose/kebab input", convert("release-notes-2.5", true)["Title Case"], "Release Notes 2.5")
+	expect("prose/dot input", convert("dot.case.input", true)["Title Case"], "Dot Case Input")
+	expect("prose/no space", convert("hello,world", true)["Title Case"], "Hello World")
+
+	-- Initialisms and hyphens inside prose stay whole; a lone identifier still splits.
+	expect("prose/initialism", convert("call the S.W.A.T. team", true)["Title Case"], "Call the S.W.A.T. Team")
+	expect("prose/initialism lowercase", convert("tea, e.g. green", true)["Sentence case"], "Tea, e.g. green")
+	expect("prose/hyphen acronym", convert("a USB-C and PCI-e card", true)["Title Case"], "A USB-C and PCI-e Card")
+	expect("prose/hyphen word", convert("self-driving car", true)["Title Case"], "Self-driving Car")
+	expect("prose/lone identifier", convert("user-name", true)["Title Case"], "User Name")
+	expect("prose/kebab unchanged", convert("a USB-C card", true)["kebab-case"], "a-usb-c-card")
+end
+
 -- Non-ASCII: bytes must survive untouched, never be torn apart. Latin-1
 -- accents are cased; anything past that block is copied verbatim.
 do
