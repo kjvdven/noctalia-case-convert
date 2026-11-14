@@ -6,7 +6,7 @@
 
 id = "kjvdven/case-convert"
 name = "Case Convert"
-version = "1.0.0"
+version = "1.1.0"
 plugin_api = 3
 author = "kjvdven"
 license = "MIT"
